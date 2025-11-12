@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AutoMarket — Premium Car Showroom</title>
+
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="theme.js" defer></script>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo" aria-label="AutoMarket home">
+        <img src="logo.jpeg" alt="AutoMarket logo" class="logo-img" />
+        <span class="logo-text">AutoMarket</span>
+      </a>
+
+      <nav class="nav" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="page2.html">Inventory</a></li>
+          <li><a href="page3.html">About</a></li>
+          <li><a href="page4.html">Gallery</a></li>
+          <li><a href="page5.html">Contact</a></li>
+          <li><a href="page6.html">Blog</a></li>
+        </ul>
+      </nav>
+
+      <div class="user-panel">
+        <span id="user-display"></span>
+        <button id="login-btn" class="btn btn-outline">Login</button>
+        <button id="register-btn" class="btn btn-outline">Register</button>
+        <button id="theme-toggle" class="btn btn-outline" aria-label="Switch theme">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero hero-dark">
+    <div class="container">
+      <h1 class="hero-title">Welcome to AutoMarket</h1>
+      <p class="lead">Discover premium cars and exclusive deals across Kazakhstan.</p>
+      <a class="btn btn-primary" href="page2.html">Browse Inventory</a>
+    </div>
+  </section>
+
+  <!-- ===== FEATURED CARS ===== -->
+  <section class="container cards-section" aria-label="Featured cars">
+    <h2 class="section-title">Featured Cars</h2>
+    <div id="car-list" class="cards-row" role="list">
+      <div class="card"><img src="camry.jpg" alt="Toyota Camry" class="card-img" /><div class="card-body"><h3 class="card-title">Toyota Camry</h3><p class="price">$24,000</p></div></div>
+      <div class="card"><img src="bmw.jpg" alt="BMW M5" class="card-img" /><div class="card-body"><h3 class="card-title">BMW M5</h3><p class="price">$70,000</p></div></div>
+      <div class="card"><img src="mercedes.jpg" alt="Mercedes E-Class" class="card-img" /><div class="card-body"><h3 class="card-title">Mercedes E-Class</h3><p class="price">$68,000</p></div></div>
+    </div>
+  </section>
+
+  <!-- ===== CAR FACT SECTION ===== -->
+  <section class="container facts-section">
+    <h2 class="section-title">Car Facts</h2>
+    <p id="fact-area">Click below to see an interesting fact about cars!</p>
+    <button id="random-fact-btn" class="btn btn-outline">Show Car Fact</button>
+  </section>
+
+  <!-- ===== STATS COUNTER ===== -->
+  <section class="container stats-section">
+    <h2 class="section-title">Our Stats</h2>
+    <div class="stats">
+      <div class="counter" data-target="1500">0</div>
+      <div class="counter" data-target="350">0</div>
+      <div class="counter" data-target="9800">0</div>
+    </div>
+  </section>
+
+  <!-- ===== COPY SECTION ===== -->
+  <section class="container copy-section">
+    <h2 class="section-title">Exclusive Offer</h2>
+    <p id="text">Promo Code: AUTOSALE2025</p>
+    <button id="copy-btn" class="btn btn-outline">Copy</button>
+  </section>
+
+  <!-- ===== CONTACT FORM ===== -->
+  <section class="container contact-section">
+    <h2 class="section-title">Contact Us</h2>
+    <form id="subscribe-form">
+      <input type="text" placeholder="Your name" required />
+      <input type="email" placeholder="Email" required />
+      <button id="submit-btn" type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </section>
+
+  <!-- ===== LOGIN & REGISTER MODALS ===== -->
+  <div id="auth-modal" class="modal hidden">
+    <div class="modal-content">
+      <span id="close-modal">&times;</span>
+      <h2 id="modal-title">Login</h2>
+      <form id="auth-form">
+        <input type="text" id="username" placeholder="Username" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <button type="submit" class="btn btn-primary" id="auth-submit">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== PROGRESS BAR ===== -->
+  <div id="progress-bar"></div>
+  <div id="toast"></div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2025 AutoMarket. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Help</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JS ===== -->
+  <script src="script.js"></script>
+
+  <script>
+    $(function(){
+      const modal = $("#auth-modal");
+      const form = $("#auth-form");
+      const userDisplay = $("#user-display");
+
+      // Check if user is already logged in
+      const savedUser = localStorage.getItem("userLogged");
+      if (savedUser) {
+        userDisplay.text("👤 " + savedUser);
+        $("#login-btn, #register-btn").hide();
+      }
+
+      // Open modal
+      $("#login-btn, #register-btn").on("click", function(){
+        const isRegister = $(this).attr("id") === "register-btn";
+        $("#modal-title").text(isRegister ? "Register" : "Login");
+        $("#auth-submit").text(isRegister ? "Register" : "Login");
+        $("#auth-submit").data("mode", isRegister ? "register" : "login");
+        modal.removeClass("hidden");
+      });
+
+      $("#close-modal").click(() => modal.addClass("hidden"));
+
+      // Submit auth form
+      form.submit(function(e){
+        e.preventDefault();
+        const username = $("#username").val();
+        const password = $("#password").val();
+        const mode = $("#auth-submit").data("mode");
+
+        if (mode === "register") {
+          localStorage.setItem("regUser", username);
+          localStorage.setItem("regPass", password);
+          alert("✅ Registration successful!");
+        } else {
+          const regUser = localStorage.getItem("regUser");
+          const regPass = localStorage.getItem("regPass");
+          if (username === regUser && password === regPass) {
+            localStorage.setItem("userLogged", username);
+            userDisplay.text("👤 " + username);
+            $("#login-btn, #register-btn").hide();
+            alert("✅ Login successful!");
+            modal.addClass("hidden");
+          } else {
+            alert("❌ Incorrect username or password!");
+          }
+        }
+      });
+    });
+  </script>
+
+  <style>
+    /* ===== MODAL ===== */
+    .modal { position: fixed; top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.8); display:flex; align-items:center; justify-content:center; z-index:2000; }
+    .modal.hidden { display:none; }
+    .modal-content { background:#111; color:#fff; padding:25px 30px; border-radius:12px;
+      width:320px; box-shadow:0 0 15px rgba(255,255,255,0.2); text-align:center; }
+    .modal-content input {
+      width:100%; padding:10px; margin:8px 0; border-radius:8px; border:none; outline:none;
+      background:#222; color:#fff;
+    }
+    .modal-content button { margin-top:10px; }
+    #close-modal { float:right; font-size:1.5rem; cursor:pointer; color:#ccc; }
+
+    .user-panel { display:flex; align-items:center; gap:8px; }
+    #user-display { font-weight:600; }
+  </style>
+</body>
+</html>

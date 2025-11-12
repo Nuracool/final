@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AutoMarket — Inventory</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="theme.js" defer></script>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo" aria-label="AutoMarket home">
+        <img src="logo.jpeg" alt="AutoMarket logo" class="logo-img" />
+        <span class="logo-text">AutoMarket</span>
+      </a>
+
+      <nav class="nav" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a class="active" href="page2.html">Inventory</a></li>
+          <li><a href="page3.html">About</a></li>
+          <li><a href="page4.html">Gallery</a></li>
+          <li><a href="page5.html">Contact</a></li>
+          <li><a href="page6.html">Blog</a></li>
+        </ul>
+      </nav>
+
+      <div class="user-panel">
+        <span id="user-display"></span>
+        <button id="logout-btn" class="btn btn-outline" style="display:none;">Logout</button>
+        <button id="theme-toggle" class="btn btn-outline" aria-label="Switch theme">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== TITLE & FILTERS ===== -->
+  <section class="container" style="padding-top:1.25rem;">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+      <div>
+        <h1 style="margin:.15rem 0 0;">Inventory</h1>
+        <p class="lead" style="margin: .2rem 0 .6rem;">
+          Browse all available cars — filter, sort, and compare. Click “View” for details.
+        </p>
+      </div>
+
+      <div style="display:flex;gap:.5rem;align-items:center;">
+        <select id="sort-select" class="btn" 
+          style="padding:.45rem .6rem;border-radius:10px;border:1px solid rgba(15,23,42,0.06);font-weight:600;">
+          <option value="recent">Newest</option>
+          <option value="price-low">Price: Low → High</option>
+          <option value="price-high">Price: High → Low</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- SEARCH BAR -->
+    <input type="text" id="search-input" placeholder="Search cars..."
+      style="margin-top:1rem;width:100%;max-width:400px;padding:.5rem 1rem;border-radius:8px;
+      border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.05);color:inherit;">
+  </section>
+
+  <!-- ===== CAR LIST ===== -->
+  <main class="container cards-section" aria-label="Car listings">
+    <h2 class="section-title">All listings</h2>
+
+    <div class="cards-row" id="car-list" role="list">
+
+      <article class="card" data-name="Toyota Camry" data-price="6300000">
+        <img src="camry.jpg" alt="Toyota Camry 2018" class="card-img" />
+        <div class="card-body">
+          <h3 class="card-title">Toyota Camry — 2018</h3>
+          <p class="card-text">2.5L • Automatic • 78,000 km • Single owner</p>
+          <div class="card-footer">
+            <span class="price">₸ 6,300,000</span>
+            <a class="btn btn-outline" href="#">View</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-name="BMW 320i" data-price="9100000">
+        <img src="bmw.jpg" alt="BMW 320i 2016" class="card-img" />
+        <div class="card-body">
+          <h3 class="card-title">BMW 320i — 2016</h3>
+          <p class="card-text">2.0L Turbo • Manual • 95,000 km</p>
+          <div class="card-footer">
+            <span class="price">₸ 9,100,000</span>
+            <a class="btn btn-outline" href="#">View</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-name="Mercedes C-Class" data-price="11500000">
+        <img src="mercedes.jpg" alt="Mercedes C-Class 2017" class="card-img" />
+        <div class="card-body">
+          <h3 class="card-title">Mercedes C-Class — 2017</h3>
+          <p class="card-text">2.1L Diesel • Automatic • Premium trim</p>
+          <div class="card-footer">
+            <span class="price">₸ 11,500,000</span>
+            <a class="btn btn-outline" href="#">View</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-name="Audi A4" data-price="7900000">
+        <img src="audi.jpeg" alt="Audi A4 2015" class="card-img" />
+        <div class="card-body">
+          <h3 class="card-title">Audi A4 — 2015</h3>
+          <p class="card-text">2.0L • Quattro AWD • 130,000 km</p>
+          <div class="card-footer">
+            <span class="price">₸ 7,900,000</span>
+            <a class="btn btn-outline" href="#">View</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-name="Toyota Prius" data-price="8200000">
+        <img src="prius.jpeg" alt="Toyota Prius 2019" class="card-img" />
+        <div class="card-body">
+          <h3 class="card-title">Toyota Prius — 2019</h3>
+          <p class="card-text">Hybrid • Low consumption • 60,000 km</p>
+          <div class="card-footer">
+            <span class="price">₸ 8,200,000</span>
+            <a class="btn btn-outline" href="#">View</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2025 AutoMarket. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Help</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JS ===== -->
+  <script>
+    $(document).ready(function() {
+      // --- LOGIN STATE ---
+      const savedUser = localStorage.getItem("userLogged");
+      if (savedUser) {
+        $("#user-display").text("👤 " + savedUser);
+        $("#logout-btn").show();
+      }
+
+      $("#logout-btn").click(function() {
+        localStorage.removeItem("userLogged");
+        $("#user-display").text("");
+        $(this).hide();
+        alert("You have been logged out.");
+      });
+
+      // --- SEARCH ---
+      $("#search-input").on("keyup", function() {
+        const value = $(this).val().toLowerCase();
+        $(".card").filter(function() {
+          $(this).toggle($(this).data("name").toLowerCase().includes(value));
+        });
+      });
+
+      // --- SORTING ---
+      $("#sort-select").on("change", function() {
+        const sort = $(this).val();
+        const cards = $(".card").get();
+        cards.sort(function(a, b) {
+          const priceA = parseInt($(a).data("price"));
+          const priceB = parseInt($(b).data("price"));
+          if (sort === "price-low") return priceA - priceB;
+          if (sort === "price-high") return priceB - priceA;
+          return 0;
+        });
+        $(".cards-row").html(cards);
+      });
+    });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>

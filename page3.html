@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AutoMarket — About Us</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <style>
+    body {
+      transition: background 0.4s, color 0.4s;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body.dark-theme {
+      background: #0d0d0f;
+      color: #f5f5f5;
+    }
+
+    body.light-theme {
+      background: #fafafa;
+      color: #111;
+    }
+
+    .about-hero, .sidebar-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 14px;
+      padding: 1.3rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: background 0.4s, color 0.4s;
+    }
+
+    body.light-theme .about-hero,
+    body.light-theme .sidebar-card {
+      background: #fff;
+      color: #111;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .grid-layout {
+      display: grid;
+      grid-template-columns: 270px 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .grid-layout { grid-template-columns: 1fr; }
+    }
+
+    .partners {
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .partner-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .partner-card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      width: 180px;
+      text-align: center;
+      transition: transform 0.3s, background 0.3s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      cursor: pointer;
+    }
+
+    .partner-card:hover {
+      transform: scale(1.05);
+      background: rgba(255,255,255,0.15);
+    }
+
+    body.light-theme .partner-card {
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .partner-card img {
+      width: 80px;
+      height: auto;
+      margin-bottom: 0.5rem;
+      filter: brightness(0) invert(1);
+      transition: filter 0.3s;
+    }
+
+    body.light-theme .partner-card img {
+      filter: none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo" aria-label="AutoMarket home">
+        <img src="logo.jpeg" alt="AutoMarket logo" class="logo-img" />
+        <span class="logo-text">AutoMarket</span>
+      </a>
+
+      <nav class="nav" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="page2.html">Inventory</a></li>
+          <li><a class="active" href="page3.html">About</a></li>
+          <li><a href="page4.html">Gallery</a></li>
+          <li><a href="page5.html">Contact</a></li>
+          <li><a href="page6.html">Blog</a></li>
+        </ul>
+      </nav>
+
+      <div class="user-panel">
+        <span id="user-display"></span>
+        <button id="logout-btn" class="btn btn-outline" style="display:none;">Logout</button>
+        <button id="theme-toggle" class="btn btn-outline" aria-label="Switch theme">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="container" style="padding-top: 1.5rem;">
+    <h1 style="text-align:center;margin-bottom:1rem;">About AutoMarket</h1>
+    <p style="text-align:center;max-width:700px;margin:auto;margin-bottom:2rem;">
+      We connect car buyers and sellers across Kazakhstan, offering verified listings, fair deals, and full transparency.
+    </p>
+
+    <div class="grid-layout">
+      <!-- SIDEBAR -->
+      <aside>
+        <div class="sidebar-card">
+          <h3>Quick Filters</h3>
+          <label>Make</label>
+          <select>
+            <option>Toyota</option>
+            <option>BMW</option>
+            <option>Mercedes</option>
+            <option>Audi</option>
+          </select>
+
+          <label style="margin-top:0.8rem;">Price Range</label>
+          <input type="range" min="0" max="20000000" value="10000000">
+
+          <p style="font-size:0.95rem;margin-top:0.6rem;">Use filters to narrow your search quickly. Then click below:</p>
+          <a href="page2.html" class="btn btn-primary" style="margin-top:0.6rem;display:inline-block;">Browse Inventory</a>
+        </div>
+
+        <div style="margin-top:1rem;" class="sidebar-card">
+          <h3>Contact Us</h3>
+          <p>Need help? Call <strong>+7 (700) 123-4567</strong></p>
+          <a href="page5.html" class="btn btn-outline">Get Support</a>
+        </div>
+      </aside>
+
+      <!-- MAIN SECTION -->
+      <section>
+        <div class="about-hero">
+          <h2>Our Story</h2>
+          <p>
+            AutoMarket was founded to bring trust and simplicity to car trading. We verify all listings, photos, and documents,
+            ensuring that buyers and sellers enjoy a safe and transparent experience.
+          </p>
+
+          <h3 style="margin-top:1rem;">How it works</h3>
+          <ol>
+            <li>Search or filter cars in our inventory.</li>
+            <li>Open a listing to view details and photos.</li>
+            <li>Contact the seller via secure messaging.</li>
+            <li>Arrange inspection and finalize your purchase.</li>
+          </ol>
+        </div>
+
+        <div class="about-hero">
+          <h2>Our Values</h2>
+          <p>
+            We value transparency, safety, and quality. Our mission is to make the car market more honest and user-friendly.
+          </p>
+
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;">
+            <div class="sidebar-card" style="flex:1;text-align:center;">
+              <strong>Verified</strong>
+              <p>All sellers and listings are verified.</p>
+            </div>
+            <div class="sidebar-card" style="flex:1;text-align:center;">
+              <strong>Quality</strong>
+              <p>We ensure all images meet our photo standards.</p>
+            </div>
+            <div class="sidebar-card" style="flex:1;text-align:center;">
+              <strong>Support</strong>
+              <p>Our support team works 24/7 across Kazakhstan.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- PARTNERS SECTION -->
+        <div class="about-hero partners">
+          <h2>Our Partners</h2>
+          <p>We collaborate with trusted automotive brands and dealerships.</p>
+          <div class="partner-grid">
+            <div class="partner-card"><img src="toyota.png" alt="Toyota"><div>Toyota</div></div>
+            <div class="partner-card"><img src="bmw-logo.png" alt="BMW"><div>BMW</div></div>
+            <div class="partner-card"><img src="audi-logo.png" alt="Audi"><div>Audi</div></div>
+            <div class="partner-card"><img src="mercedes-logo.png" alt="Mercedes"><div>Mercedes</div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2025 AutoMarket. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Help</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JS ===== -->
+  <script>
+    $(document).ready(function() {
+      const savedUser = localStorage.getItem("userLogged");
+      if (savedUser) {
+        $("#user-display").text("👤 " + savedUser);
+        $("#logout-btn").show();
+      }
+
+      $("#logout-btn").click(function() {
+        localStorage.removeItem("userLogged");
+        $("#user-display").text("");
+        $(this).hide();
+        alert("You have been logged out.");
+      });
+
+      // Theme toggle
+      const themeBtn = $("#theme-toggle");
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      $("body").addClass(savedTheme === 'dark' ? 'dark-theme' : 'light-theme');
+      themeBtn.text(savedTheme === 'dark' ? '☀️ Light Mode' : '🌙 Night Mode');
+
+      themeBtn.click(() => {
+        const isDark = $("body").toggleClass("dark-theme").hasClass("dark-theme");
+        $("body").toggleClass("light-theme", !isDark);
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+        themeBtn.text(isDark ? '☀️ Light Mode' : '🌙 Night Mode');
+      });
+    });
+  </script>
+</body>
+</html>

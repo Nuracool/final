@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AutoMarket — Blog</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin:0;
+      padding:0;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.dark-theme {
+      background:#0d0d0f;
+      color:#f5f5f5;
+    }
+
+    body.light-theme {
+      background:#fafafa;
+      color:#111;
+    }
+
+    .site-header, .site-footer {
+      background: var(--header-bg, #fff);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.dark-theme .site-header, body.dark-theme .site-footer {
+      background:#111;
+      color:#f5f5f5;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .blog-hero {
+      margin:.75rem 0; padding:.9rem; border-radius:12px; box-shadow: var(--surface-shadow);
+      background:white; transition: background 0.3s, color 0.3s;
+    }
+
+    body.dark-theme .blog-hero { background:#1a1a1f; color:#f5f5f5; }
+
+    .blog-grid {
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:1rem;
+    }
+
+    .posts { display:flex; flex-direction:column; gap:1rem; }
+
+    .post {
+      display:flex; gap:.9rem; background:white; padding:.7rem; border-radius:12px;
+      box-shadow: var(--surface-shadow); align-items:flex-start; cursor:pointer;
+      transition: background 0.3s;
+    }
+
+    body.dark-theme .post { background:#1a1a1f; color:#f5f5f5; }
+
+    .post img { width:120px; height:80px; object-fit:cover; border-radius:8px; flex-shrink:0; }
+
+    .post h3 { margin:0 0 .25rem; font-size:1rem; }
+    .post p { margin:0; color:var(--muted); }
+    body.dark-theme .post p { color:#ccc; }
+
+    .sidebar-card { background:white; padding:1rem; border-radius:12px; box-shadow: var(--surface-shadow); }
+    body.dark-theme .sidebar-card { background:#1a1a1f; color:#f5f5f5; }
+
+    .modal {
+      display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.7); align-items:center; justify-content:center; z-index:1000;
+    }
+
+    .modal-content {
+      background:#fff; padding:1rem 1.5rem; border-radius:12px; max-width:600px; max-height:80%;
+      overflow-y:auto; position:relative;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.dark-theme .modal-content { background:#222; color:#f5f5f5; }
+
+    .modal-close {
+      position:absolute; top:0.5rem; right:0.5rem; cursor:pointer; font-weight:bold; font-size:1.2rem;
+    }
+
+    @media(max-width:880px){
+      .blog-grid { grid-template-columns:1fr; }
+      .post { flex-direction:column; }
+      .post img { width:100%; height:160px; border-radius:10px; }
+    }
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo" aria-label="AutoMarket home">
+        <img src="logo.jpeg" alt="AutoMarket logo" class="logo-img" />
+        <span class="logo-text">AutoMarket</span>
+      </a>
+
+      <nav class="nav" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="page2.html">Inventory</a></li>
+          <li><a href="page3.html">About</a></li>
+          <li><a href="page4.html">Gallery</a></li>
+          <li><a href="page5.html">Contact</a></li>
+          <li><a class="active" href="page6.html">Blog</a></li>
+        </ul>
+      </nav>
+
+      <div class="user-panel">
+        <span id="user-display"></span>
+        <button id="logout-btn" class="btn btn-outline" style="display:none;">Logout</button>
+        <button id="theme-toggle" class="btn btn-outline" aria-label="Switch theme">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="container" style="padding-top:1rem;">
+    <div class="blog-hero">
+      <h1 style="margin:.1rem 0;">AutoMarket Blog</h1>
+      <p class="lead" style="margin:.25rem 0 .6rem;">
+        News, tips, and guides about buying and selling cars in Kazakhstan.
+      </p>
+    </div>
+
+    <div class="blog-grid">
+      <section class="posts" aria-label="Latest posts">
+        <!-- Посты будут загружены через API -->
+      </section>
+
+      <aside class="sidebar-card" aria-labelledby="sidebar-blog">
+        <h3 id="sidebar-blog">Popular topics</h3>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.6rem;">
+          <li><a href="#" class="nav-link">Buying guides</a></li>
+          <li><a href="#" class="nav-link">Maintenance tips</a></li>
+          <li><a href="#" class="nav-link">Market trends</a></li>
+          <li><a href="#" class="nav-link">Safety checks</a></li>
+        </ul>
+
+        <div style="margin-top:.8rem;">
+          <h4 style="margin:0 0 .4rem;">Subscribe</h4>
+          <p style="margin:0 0 .4rem;color:var(--muted);">Get new posts by email.</p>
+          <form id="subscribe-form" action="#" method="post">
+            <input type="email" id="subscribe-email" placeholder="you@example.com" style="width:100%;padding:.6rem;border-radius:8px;border:1px solid rgba(15,23,42,0.06);margin-bottom:.5rem;" required>
+            <button class="btn btn-primary" type="submit" id="submit-btn">Subscribe</button>
+          </form>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer" style="margin-top:1.25rem;">
+    <div class="container footer-inner">
+      <p>© 2025 AutoMarket. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Help</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== MODAL ===== -->
+  <div class="modal" id="blog-modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h3 id="modal-title"></h3>
+      <img id="modal-img" src="" alt="" style="width:100%;max-height:250px;object-fit:cover;border-radius:8px;margin:0.5rem 0;">
+      <p id="modal-desc"></p>
+      <a id="modal-link" href="#" target="_blank" class="btn btn-outline">Read full article</a>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+  $(document).ready(function(){
+    // --- LOGIN ---
+    const savedUser = localStorage.getItem("userLogged");
+    if(savedUser){
+      $("#user-display").text("👤 " + savedUser);
+      $("#logout-btn").show();
+    }
+
+    $("#logout-btn").click(function(){
+      localStorage.removeItem("userLogged");
+      $("#user-display").text("");
+      $(this).hide();
+      alert("Logged out!");
+    });
+
+    // --- THEME ---
+    const themeBtn = $("#theme-toggle");
+    const savedTheme = localStorage.getItem("theme") || 'dark';
+    $("body").addClass(savedTheme==='dark'?'dark-theme':'light-theme');
+    themeBtn.text(savedTheme==='dark'?'☀️ Light Mode':'🌙 Night Mode');
+
+    themeBtn.click(()=>{
+      const isDark = $("body").toggleClass("dark-theme").hasClass("dark-theme");
+      $("body").toggleClass("light-theme",!isDark);
+      localStorage.setItem("theme",isDark?'dark':'light');
+      themeBtn.text(isDark?'☀️ Light Mode':'🌙 Night Mode');
+    });
+
+    // --- API INTEGRATION ---
+    const apiKey = "9f614a66e3a142758d93be27843281b8";
+    const postsContainer = $(".posts");
+    fetch(`https://newsapi.org/v2/top-headlines?country=kz&category=business&apiKey=${apiKey}`)
+      .then(res=>res.json())
+      .then(data=>{
+        postsContainer.empty();
+        if(!data.articles || !data.articles.length){
+          postsContainer.html("<p>No news available at the moment. Try again later.</p>");
+          return;
+        }
+        data.articles.forEach(article=>{
+          const postHTML = `
+            <article class="post">
+              <img src="${article.urlToImage||'placeholder.jpg'}" alt="${article.title}">
+              <div>
+                <h3>${article.title}</h3>
+                <p class="muted">${article.description||''} • <em>${new Date(article.publishedAt).toLocaleDateString()}</em></p>
+                <button class="btn btn-outline read-btn" 
+                        data-title="${article.title}" 
+                        data-img="${article.urlToImage||'placeholder.jpg'}" 
+                        data-desc="${article.content||article.description||''}"
+                        data-link="${article.url}">
+                  Read
+                </button>
+              </div>
+            </article>`;
+          postsContainer.append(postHTML);
+        });
+
+        // --- MODAL OPEN ---
+        $(".read-btn").click(function(){
+          const title = $(this).data("title");
+          const img = $(this).data("img");
+          const desc = $(this).data("desc");
+          const link = $(this).data("link");
+
+          $("#modal-title").text(title);
+          $("#modal-img").attr("src",img).attr("alt",title);
+          $("#modal-desc").text(desc);
+          $("#modal-link").attr("href",link);
+
+          $("#blog-modal").fadeIn();
+        });
+      })
+      .catch(err=>{
+        console.error(err);
+        postsContainer.html("<p>Не удалось загрузить новости. Попробуйте позже.</p>");
+      });
+
+    // --- MODAL CLOSE ---
+    $(".modal-close, #blog-modal").click(function(e){
+      if(e.target !== this) return;
+      $("#blog-modal").fadeOut();
+    });
+
+    // --- SUBSCRIBE FORM ---
+    $("#subscribe-form").on("submit", function(e){
+      e.preventDefault();
+      const email = $("#subscribe-email").val();
+      alert(`Subscribed with ${email}!`);
+      $(this)[0].reset();
+    });
+
+  });
+  </script>
+
+</body>
+</html>
